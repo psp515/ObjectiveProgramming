@@ -16,6 +16,7 @@ public class World
         run(directions);
 
         out.println("** Część 3* **");
+        out.println("todo");
 
         out.println("\n****system zakończył działanie****\n");
     }
