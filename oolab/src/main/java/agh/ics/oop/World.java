@@ -1,26 +1,36 @@
 package agh.ics.oop;
 
+import java.util.Arrays;
+
 import static java.lang.System.out;
 
+// Klasa zawiera notatki porównujące Jave do C#
 public class World
 {
     public static void main(String[] args)
     {
+        // Zeby móc użyć out.printline pierwsze trzeba zaimportować klase out, w c# jest od razu klasa Console z metodą write
         out.println("\n****system wystartował****");
         out.println("** Część 1 **");
+        // Tablice działają podobnie
         String[] cars = {"Volvo", "BMW", "Ford", "Mazda"};
         run(cars);
 
         out.println("** Część 2 **");
-        Direction[] directions = ParseMoves(args);
-        run(directions);
+        run(ParseMoves(args));
 
         out.println("** Część 3* **");
-        out.println("todo");
+        // użycie Stream -> To taki C#-powy Linq
+        runStream(StreamParseMoves(args));
+
+        out.println("** Extended 3* **");
+        // właściwie to dało się rozwiaza to w jednej linijce
+        OneLiner(args);
 
         out.println("\n****system zakończył działanie****\n");
     }
 
+    // Part One
     public static void run(String[] arguments){
         out.println("zwierzak idzie do przdou");
         for(int i = 0; i < arguments.length; i++)
@@ -32,30 +42,7 @@ public class World
         out.print("\n");
     }
 
-    public static void run(Direction[] directions)
-    {
-        if(directions == null || directions.length == 0)
-        {
-            out.println("Brak ruchów.");
-            return;
-        }
-
-        for(Direction direction : directions)
-        {
-            out.println(GetDirectionDescription((direction)));
-        }
-    }
-
-    private static String GetDirectionDescription(Direction direction)
-    {
-        return switch (direction)
-        {
-            case LEFT -> "zwierzak idzie w lewo";
-            case BACKWARD -> "zwierzak idzie do tylu";
-            case RIGHT -> "zwierzak idzie w prawo";
-            case FORWARD -> "zwierzak idzie do przodu";
-        };
-    }
+    //Part Two
 
     public static Direction[] ParseMoves(String[] args)
     {
@@ -101,5 +88,92 @@ public class World
 
         return directions;
     }
+    public static void run(Direction[] directions)
+    {
+        if(directions == null || directions.length == 0)
+        {
+            out.println("Brak ruchów.");
+            return;
+        }
+        out.println("Start");
+        // w c# jest foreach a nie jako modyfikacja for
+        for(Direction direction : directions)
+        {
+            out.println(GetDirectionDescription((direction)));
+        }
+        out.println("Stop");
+    }
 
+    // Part Three*
+    public static void runStream(Direction[] directions)
+    {
+        if(directions == null || directions.length == 0)
+        {
+            out.println("Brak ruchów.");
+            return;
+        }
+
+        out.println("Start");
+        // bardziej skomplikowana składnia od Linq
+        Arrays.stream(directions).forEach(x -> out.println(GetDirectionDescription(x)));
+        out.println("Stop");
+
+    }
+
+    public static Direction[] StreamParseMoves(String[] args)
+    {
+        // bardziej skomplikowana składnia od Linq
+        String[] parsed = Arrays.stream(args).filter(World::IsValidDirectionString).toArray(String[]::new);
+        return Arrays.stream(parsed).map(World::StringToDirection).toArray(Direction[]::new);
+    }
+
+    //Extended
+
+    public static void OneLiner(String[] args)
+    {
+        if(args == null || args.length == 0)
+        {
+            out.println("Brak ruchów.");
+            return;
+        }
+
+        // właściwie to krok parsowania na Directions można by pominąć i działało by tak samo
+        out.println("Start");
+        Arrays.stream(Arrays.stream(Arrays.stream(args).
+                filter(World::IsValidDirectionString).
+                toArray(String[]::new)).
+                map(World::StringToDirection).
+                toArray(Direction[]::new)).
+                forEach(x -> out.println(GetDirectionDescription(x)));
+        out.println("Stop");
+    }
+
+    // Converting Data
+    private static Direction StringToDirection(String x)
+    {
+        // to ciekawe rozwiązanie w c# jest pod nazwa switch expressions od c# 8
+        return switch (x)
+        {
+            case "l" -> Direction.LEFT;
+            case "b" -> Direction.BACKWARD;
+            case "r" -> Direction.RIGHT;
+            default -> Direction.FORWARD;
+        };
+    }
+    private static boolean IsValidDirectionString(String x)
+    {
+        // w c# po prostu == do porówynwania stringów jest ok
+        return x.equals("f") || x.equals("b") || x.equals("l") || x.equals("r");
+    }
+    private static String GetDirectionDescription(Direction direction)
+    {
+        // to ciekawe rozwiązanie w c# jest pod nazwa switch expressions od c# 8
+        return switch (direction)
+                {
+                    case LEFT -> "zwierzak idzie w lewo";
+                    case BACKWARD -> "zwierzak idzie do tylu";
+                    case RIGHT -> "zwierzak idzie w prawo";
+                    case FORWARD -> "zwierzak idzie do przodu";
+                };
+    }
 }
