@@ -11,7 +11,8 @@ public class World
     {
         // Zeby móc użyć out.printline pierwsze trzeba zaimportować klase out, w c# jest od razu klasa Console z metodą write
         out.println("\n****system wystartował****");
-        out.println("** Część 1 **");
+        //lab1
+        /* out.println("** Część 1 **");
         // Tablice działają podobnie
         String[] cars = {"Volvo", "BMW", "Ford", "Mazda"};
         run(cars);
@@ -25,7 +26,14 @@ public class World
 
         out.println("** Extended 3* **");
         // właściwie to dało się rozwiaza to w jednej linijce
-        OneLiner(args);
+        OneLiner(args);*/
+
+        //lab2
+        Vector2d position1 = new Vector2d(1,2);
+        System.out.println(position1);
+        Vector2d position2 = new Vector2d(-2,1);
+        System.out.println(position2);
+        System.out.println(position1.add(position2));
 
         out.println("\n****system zakończył działanie****\n");
     }
