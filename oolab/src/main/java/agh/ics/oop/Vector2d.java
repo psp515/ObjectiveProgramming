@@ -58,7 +58,7 @@ public class Vector2d
     @Override
     public String toString()
     {
-        return String.format("X: %s, Y: %s",this.x, this.y);
+        return String.format("(%s,%s)",this.x, this.y);
     }
 
     @Override
@@ -69,7 +69,6 @@ public class Vector2d
         if (o == null || getClass() != o.getClass())
             return false;
         Vector2d vector2d = (Vector2d) o;
-
         return x == vector2d.x && y == vector2d.y;
     }
 

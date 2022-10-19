@@ -30,12 +30,26 @@ public class World
 
         //lab2
         Vector2d position1 = new Vector2d(1,2);
-        System.out.println(position1);
+        out.println(position1);
         Vector2d position2 = new Vector2d(-2,1);
-        System.out.println(position2);
-        System.out.println(position1.add(position2));
+        out.println(position2);
+        out.println(position1.add(position2));
 
-        out.println("\n****system zakończył działanie****\n");
+        position1 = new Vector2d(400,400);
+        out.println(position1);
+        position2 = new Vector2d(100,100);
+        position2 = position2.add(new Vector2d(300,300));
+        out.println(position2);
+        out.println(position1.equals(position2));
+
+        MapDirection direction =  MapDirection.EAST;
+
+        out.println(direction);
+        out.println(direction.previous());
+        out.println(direction.next());
+        out.println(direction.toUnitVector());
+
+        out.println("****system zakończył działanie****\n");
     }
 
     // Part One

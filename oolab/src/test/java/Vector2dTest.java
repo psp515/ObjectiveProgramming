@@ -1,4 +1,3 @@
-import agh.ics.oop.MapDirection;
 import agh.ics.oop.Vector2d;
 import org.junit.jupiter.api.Test;
 import java.util.HashMap;
@@ -41,10 +40,10 @@ public class Vector2dTest
     {
 
         HashMap<Vector2d, String> toStringMap = new HashMap<Vector2d, String>();
-        toStringMap.put(Vectors[0], "X: 1, Y: 1");
-        toStringMap.put(Vectors[1], "X: 2, Y: 2");
-        toStringMap.put(Vectors[2], "X: 2, Y: 1");
-        toStringMap.put(Vectors[3], "X: 1, Y: 1");
+        toStringMap.put(Vectors[0], "(1,1)");
+        toStringMap.put(Vectors[1], "(2,2)");
+        toStringMap.put(Vectors[2], "(2,1)");
+        toStringMap.put(Vectors[3], "(1,1)");
 
         for(Vector2d vector : Vectors)
             assertEquals(toStringMap.get(vector), vector.toString());
@@ -155,14 +154,14 @@ public class Vector2dTest
     * Nie ma wbydowanej możliwości przekazywania funkcji z X argumentami w c# jest do 20 parametrów chyba z automatu
     * Trzeba stworzyć swoją funkcję
     */
-    private void booleanTest(Boolean[][] answers, ITestFunction<Vector2d, Vector2d, Boolean> testFunction)
+    private void booleanTest(Boolean[][] answers, IFunction<Vector2d, Vector2d, Boolean> testFunction)
     {
         for(int i = 0; i < 4; i++)
             for(int j = 0; j < 4; j++)
                 assertEquals(answers[i][j], testFunction.apply(Vectors[i], Vectors[j]));
     }
 
-    private void booleanTest(Vector2d[][] answers, ITestFunction<Vector2d, Vector2d, Vector2d> testFunction)
+    private void booleanTest(Vector2d[][] answers, IFunction<Vector2d, Vector2d, Vector2d> testFunction)
     {
         for(int i = 0; i < 4; i++)
             for(int j = 0; j < 4; j++)
