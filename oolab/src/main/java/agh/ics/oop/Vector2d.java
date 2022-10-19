@@ -15,11 +15,13 @@ public class Vector2d
 
     //region Publics
 
-    public boolean Precedes(Vector2d other)
+    //aktualny punkt poprzedza ten przekazany w funkcji
+    public boolean precedes(Vector2d other)
     {
         return this.x <= other.x && this.y <= other.y;
     }
 
+    // aktualny punkt nastepuje po tym przekazanym w funkcji
     public boolean follows(Vector2d other)
     {
         return this.x >= other.x && this.y >= other.y;
@@ -32,7 +34,7 @@ public class Vector2d
 
     public Vector2d subtract(Vector2d other)
     {
-        return new Vector2d(other.x-this.x, other.y-this.y);
+        return new Vector2d(this.x-other.x, this.y-other.y);
     }
 
     public Vector2d upperRight(Vector2d other)

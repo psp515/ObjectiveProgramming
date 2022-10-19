@@ -1,7 +1,8 @@
 package agh.ics.oop;
 
-public enum MapDirection
-{
+import java.util.EnumMap;
+
+public enum MapDirection  {
     NORTH,
     SOUTH,
     EAST,
@@ -12,9 +13,9 @@ public enum MapDirection
         return switch(this)
         {
             case NORTH -> "Północ";
-            case SOUTH->"Południe";
+            case SOUTH -> "Południe";
             case WEST -> "Zachód";
-            case EAST->"Wschód";
+            case EAST -> "Wschód";
         };
     }
 
