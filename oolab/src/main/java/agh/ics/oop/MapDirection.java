@@ -1,7 +1,5 @@
 package agh.ics.oop;
 
-import java.util.EnumMap;
-
 public enum MapDirection  {
     NORTH,
     SOUTH,

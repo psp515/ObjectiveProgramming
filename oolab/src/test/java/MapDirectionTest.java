@@ -1,11 +1,7 @@
 import agh.ics.oop.MapDirection;
-import agh.ics.oop.MoveDirection;
 import agh.ics.oop.Vector2d;
 import org.junit.jupiter.api.Test;
-
 import java.util.EnumMap;
-import java.util.HashMap;
-import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
