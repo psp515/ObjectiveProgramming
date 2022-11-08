@@ -12,16 +12,18 @@ public class OptionsParser
 
     private static MoveDirection StringToDirection(String x)
     {
+        // Parser fix - lab 4
         return switch (x)
                 {
-                    case "l" -> MoveDirection.LEFT;
-                    case "b" -> MoveDirection.BACKWARD;
-                    case "r" -> MoveDirection.RIGHT;
+                    case "l", "left" -> MoveDirection.LEFT;
+                    case "r", "right" -> MoveDirection.RIGHT;
+                    case "b", "backward" -> MoveDirection.BACKWARD;
                     default -> MoveDirection.FORWARD;
                 };
     }
     private static boolean IsValidDirectionString(String x)
     {
-        return x.equals("f") || x.equals("b") || x.equals("l") || x.equals("r");
+        return x.equals("f") || x.equals("b") || x.equals("l") || x.equals("r") ||
+                x.equals("forward") || x.equals("backward") || x.equals("left") || x.equals("right");
     }
 }

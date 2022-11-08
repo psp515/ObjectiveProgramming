@@ -5,32 +5,29 @@ import org.w3c.dom.ranges.RangeException;
 public class Animal
 {
     //region Properties
-
     private MapDirection animalOrientation;
     private Vector2d animalPosition;
-
-    private final Vector2d _mapBottomLeft;
-    private final Vector2d _mapTopRight;
+    private IWorldMap worldMap;
 
     //endregion
 
-    public Animal()
+    private Animal()
     {
-        animalOrientation = MapDirection.NORTH;
-        animalPosition = new Vector2d(2,2);
-        _mapBottomLeft = new Vector2d(0,0);
-        _mapTopRight = new Vector2d(4,4);
+        /* Można wykorzystać ten konstruktor do inicjalizacji pól które są zawsze
+         * takie same na począku dla każdego obiektu tej klasy.
+         */
+        this.animalOrientation = MapDirection.NORTH;
     }
 
-    public Animal(Vector2d startingPosition)
-    {
-        _mapBottomLeft = new Vector2d(0,0);
-        _mapTopRight = new Vector2d(4,4);
-
-        if(isValidPosition(startingPosition))
-            animalPosition = startingPosition;
-        else
-            throw new RangeException((short) 0,"Invalid starting position default map size is 5x5 starting in (0,0).");
+    public Animal(IWorldMap worldMap) {
+        this();
+        this.worldMap = worldMap;
+        this.animalPosition = new Vector2d(0,0); //TODO find first empty position
+    }
+    public Animal(IWorldMap worldMap, Vector2d startingpPosition) {
+        this();
+        this.worldMap = worldMap;
+        this.animalPosition = startingpPosition; //TODO Check if position is empty
     }
 
     //region public
@@ -40,8 +37,7 @@ public class Animal
         return animalPosition.equals(position);
     }
 
-    public void move(MoveDirection[] directions)
-    {
+    public void move(MoveDirection[] directions) {
         if(directions == null || directions.length == 0)
             return;
 
@@ -49,15 +45,13 @@ public class Animal
             move(direction);
     }
 
-    public void move(String[] arguments)
-    {
+    public void move(String[] arguments) {
         MoveDirection[] directions = new OptionsParser().parse(arguments);
 
         if(directions == null || directions.length == 0)
             return;
 
-        for(MoveDirection direction : directions)
-            move(direction);
+        move(directions);
     }
 
     public void move(MoveDirection direction)
@@ -90,19 +84,8 @@ public class Animal
     {
         Vector2d tmp = animalPosition.add(movement);
 
-        if(isValidPosition(tmp))
+        if(worldMap.canMoveTo(tmp))
             animalPosition = tmp;
-    }
-
-    private boolean isValidPosition(Vector2d newPosition)
-    {
-        return beetwenRange(_mapBottomLeft.y, _mapTopRight.y, newPosition.y) &&
-                beetwenRange(_mapBottomLeft.x,_mapTopRight.x, newPosition.x);
-    }
-
-    private boolean beetwenRange(int start, int stop, int position)
-    {
-        return start <= position && position <= stop;
     }
 
     //endregion
@@ -112,7 +95,7 @@ public class Animal
     @Override
     public String toString()
     {
-        return String.format("Pozycja: %s, Orientacja: %s", animalPosition.toString(), animalOrientation.toString());
+        return String.format("Orientacja: %s", animalOrientation.toString());
     }
 
     //endregion
