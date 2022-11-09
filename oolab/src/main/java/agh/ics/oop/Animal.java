@@ -22,12 +22,18 @@ public class Animal
     public Animal(IWorldMap worldMap) {
         this();
         this.worldMap = worldMap;
-        this.animalPosition = new Vector2d(0,0); //TODO find first empty position
+        this.animalPosition = new Vector2d(0,0);
+
+        if(!worldMap.place(this))
+            throw new IllegalArgumentException(String.format("Postion %s is already occupied.", this.animalPosition.toString()));
     }
-    public Animal(IWorldMap worldMap, Vector2d startingpPosition) {
+    public Animal(IWorldMap worldMap, Vector2d initialPosition) {
         this();
         this.worldMap = worldMap;
-        this.animalPosition = startingpPosition; //TODO Check if position is empty
+        this.animalPosition = initialPosition;
+
+        if(!worldMap.place(this))
+            throw new IllegalArgumentException(String.format("Postion %s is already occupied.",initialPosition.toString()));
     }
 
     //region public
@@ -80,8 +86,7 @@ public class Animal
         animalOrientation = direction;
     }
 
-    private void changePosition(Vector2d movement)
-    {
+    private void changePosition(Vector2d movement) {
         Vector2d tmp = animalPosition.add(movement);
 
         if(worldMap.canMoveTo(tmp))
@@ -95,8 +100,9 @@ public class Animal
     @Override
     public String toString()
     {
-        return String.format("Orientacja: %s", animalOrientation.toString());
+        return String.format("%s", animalOrientation.toStringShort());
     }
 
     //endregion
+
 }

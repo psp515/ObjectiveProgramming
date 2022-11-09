@@ -9,6 +9,8 @@ public class RectangularMap implements IWorldMap {
     private final int _width;
     private final int _height;
 
+    /* Collection is private because nobody should be able to change animals
+    * without veryfication */
     private List<Animal> animals = new ArrayList<Animal>();
 
     //endregion
@@ -22,7 +24,7 @@ public class RectangularMap implements IWorldMap {
     @Override
     public boolean canMoveTo(Vector2d position)
     {
-        return isOccupied(position) &&
+        return !isOccupied(position) &&
                 position.follows(new Vector2d(0,0)) &&
                 position.precedes(new Vector2d(_width,_height));
     }
@@ -30,6 +32,7 @@ public class RectangularMap implements IWorldMap {
     @Override
     public boolean place(Animal animal) {
 
+        /*uses can move because also chceks*/
         if(canMoveTo(animal.getAnimalPosition()))
         {
             animals.add(animal);
@@ -41,7 +44,7 @@ public class RectangularMap implements IWorldMap {
 
     @Override
     public boolean isOccupied(Vector2d position) {
-        return animals.stream().noneMatch(x->x.isAt(position));
+        return animals.stream().anyMatch(x->x.isAt(position));
     }
 
     @Override
