@@ -12,7 +12,7 @@ public class SimulationEngine implements IEngine{
     private final MoveDirection[] _directions;
     private final IWorldMap _worldMap;
 
-    private List<Animal> animals = new ArrayList<Animal>();
+    public final List<Animal> animals = new ArrayList<Animal>();
 
     //endregion
 
@@ -47,7 +47,6 @@ public class SimulationEngine implements IEngine{
         {
             animals.get(i%animals.size()).move(direction);
             i+=1;
-            out.println(_worldMap.toString());
         }
     }
     //endregion
