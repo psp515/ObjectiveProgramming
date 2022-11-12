@@ -33,7 +33,7 @@ public class Animal
         this.animalPosition = initialPosition;
 
         /* Domyślnie zawsze jak podam zwierze i okresle jego mape to zwierze jest na mapie wiec
-        * od razu wywoąłm metode place zeby pozniej o niej nie zapominac */
+        * od razu wywołam metode place zeby pozniej o niej nie zapominac */
 
         if(!worldMap.place(this))
             throw new IllegalArgumentException(String.format("Postion %s is already occupied.",initialPosition.toString()));
@@ -62,7 +62,6 @@ public class Animal
 
         move(directions);
     }
-
     public void move(MoveDirection direction)
     {
         if(direction == MoveDirection.LEFT)

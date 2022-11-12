@@ -6,8 +6,8 @@ import java.util.List;
 public class RectangularMap implements IWorldMap {
 
     //region Fields
-    private final int _width;
-    private final int _height;
+    public final int _width;
+    public final int _height;
 
     /* Collection is private because nobody should be able to change animals
     * without veryfication */

@@ -1,14 +1,16 @@
 package agh.ics.oop;
 
+import javax.swing.*;
+import java.awt.*;
 import java.util.Arrays;
+import java.util.concurrent.TimeUnit;
 
 import static java.lang.System.out;
 
 // Klasa zawiera notatki porównujące Jave do C#
 public class World
 {
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
         MoveDirection[] directions = new OptionsParser().parse(args);
         IWorldMap map = new RectangularMap(10, 5);
         Vector2d[] positions = { new Vector2d(2,2), new Vector2d(3,4) };
@@ -16,7 +18,18 @@ public class World
         out.println(map);
         engine.run();
         out.println(map);
-        // todo swing -> podmiana map visualizera, albo dodanie drugiego po prostu.
-    }
 
+        //Swing
+        MoveDirection[] new_directions = new OptionsParser().parse(args);
+        map = new RectangularMap(10, 5);
+        Vector2d[] new_positions = { new Vector2d(2,2), new Vector2d(3,4) };
+        ISwingEngine new_engine = new SimulationEngine(new_directions, map, new_positions);
+        try {
+            new_engine.run(1000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+        out.println("Finish");
+    }
 }
