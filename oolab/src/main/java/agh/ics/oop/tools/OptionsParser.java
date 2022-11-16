@@ -1,4 +1,6 @@
-package agh.ics.oop;
+package agh.ics.oop.tools;
+
+import agh.ics.oop.Enums.MoveDirection;
 
 import java.util.Arrays;
 

@@ -1,9 +1,11 @@
 package agh.ics.oop;
 
-import javax.swing.*;
-import java.awt.*;
-import java.util.Arrays;
-import java.util.concurrent.TimeUnit;
+import agh.ics.oop.Enums.MoveDirection;
+import agh.ics.oop.Interfaces.IEngine;
+import agh.ics.oop.Interfaces.ISwingEngine;
+import agh.ics.oop.Interfaces.IWorldMap;
+import agh.ics.oop.tools.OptionsParser;
+import agh.ics.oop.tools.SimulationEngine;
 
 import static java.lang.System.out;
 

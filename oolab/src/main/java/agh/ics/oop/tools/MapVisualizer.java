@@ -1,4 +1,7 @@
-package agh.ics.oop;
+package agh.ics.oop.tools;
+
+import agh.ics.oop.Interfaces.IWorldMap;
+import agh.ics.oop.Vector2d;
 
 /**
  * The map visualizer converts the {@link IWorldMap} map into a string

@@ -1,6 +1,9 @@
 package agh.ics.oop;
 
-import org.w3c.dom.ranges.RangeException;
+import agh.ics.oop.Enums.MapDirection;
+import agh.ics.oop.Enums.MoveDirection;
+import agh.ics.oop.Interfaces.IWorldMap;
+import agh.ics.oop.tools.OptionsParser;
 
 public class Animal
 {

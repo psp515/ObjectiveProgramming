@@ -1,8 +1,10 @@
 import agh.ics.oop.*;
+import agh.ics.oop.Enums.MoveDirection;
+import agh.ics.oop.Interfaces.IEngine;
+import agh.ics.oop.Interfaces.IWorldMap;
+import agh.ics.oop.tools.OptionsParser;
+import agh.ics.oop.tools.SimulationEngine;
 import org.junit.jupiter.api.Test;
-
-import java.util.ArrayList;
-import java.util.Arrays;
 
 import static java.lang.System.out;
 import static org.junit.jupiter.api.Assertions.assertEquals;

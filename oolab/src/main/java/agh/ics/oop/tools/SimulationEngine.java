@@ -1,4 +1,11 @@
-package agh.ics.oop;
+package agh.ics.oop.tools;
+
+import agh.ics.oop.Animal;
+import agh.ics.oop.Enums.MoveDirection;
+import agh.ics.oop.Interfaces.IEngine;
+import agh.ics.oop.Interfaces.ISwingEngine;
+import agh.ics.oop.Interfaces.IWorldMap;
+import agh.ics.oop.Vector2d;
 
 import javax.swing.*;
 import java.awt.*;
@@ -7,7 +14,7 @@ import java.util.List;
 
 import static java.lang.System.out;
 
-public class SimulationEngine implements IEngine, ISwingEngine{
+public class SimulationEngine implements IEngine, ISwingEngine {
 
     //region Fields
 

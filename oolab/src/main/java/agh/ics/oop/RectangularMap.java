@@ -1,5 +1,8 @@
 package agh.ics.oop;
 
+import agh.ics.oop.Interfaces.IWorldMap;
+import agh.ics.oop.tools.MapVisualizer;
+
 import java.util.ArrayList;
 import java.util.List;
 
