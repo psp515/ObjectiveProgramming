@@ -1,53 +1,31 @@
 package agh.ics.oop;
 
+import agh.ics.oop.Abstracts.AbstractWorldMapElement;
 import agh.ics.oop.Enums.MapDirection;
 import agh.ics.oop.Enums.MoveDirection;
 import agh.ics.oop.Interfaces.IWorldMap;
 import agh.ics.oop.tools.OptionsParser;
 
-public class Animal
+import static java.lang.System.out;
+
+public class Animal extends AbstractWorldMapElement
 {
     //region Properties
     private MapDirection animalOrientation;
-    private Vector2d animalPosition;
-    private IWorldMap worldMap;
+    public final IWorldMap _worldMap;
 
     //endregion
 
-    private Animal()
-    {
-        /* Można wykorzystać ten konstruktor do inicjalizacji pól które są zawsze
-         * takie same na począku dla każdego obiektu tej klasy.
-         */
-        this.animalOrientation = MapDirection.NORTH;
-    }
+    public Animal(Vector2d initialPosition, IWorldMap worldMap) {
+        super(initialPosition);
+        _worldMap = worldMap;
+        animalOrientation = MapDirection.NORTH;
 
-    public Animal(IWorldMap worldMap) {
-        this();
-        this.worldMap = worldMap;
-        this.animalPosition = new Vector2d(0,0);
-
-        if(!worldMap.place(this))
-            throw new IllegalArgumentException(String.format("Postion %s is already occupied.", this.animalPosition.toString()));
-    }
-    public Animal(IWorldMap worldMap, Vector2d initialPosition) {
-        this();
-        this.worldMap = worldMap;
-        this.animalPosition = initialPosition;
-
-        /* Domyślnie zawsze jak podam zwierze i okresle jego mape to zwierze jest na mapie wiec
-        * od razu wywołam metode place zeby pozniej o niej nie zapominac */
-
-        if(!worldMap.place(this))
-            throw new IllegalArgumentException(String.format("Postion %s is already occupied.",initialPosition.toString()));
+        if(!worldMap.placeElement(this))
+            throw new IllegalArgumentException(String.format("Postion %s is already occupied.", initialPosition.toString()));
     }
 
     //region public
-
-    public boolean isAt(Vector2d position)
-    {
-        return animalPosition.equals(position);
-    }
 
     public void move(MoveDirection[] directions) {
         if(directions == null || directions.length == 0)
@@ -56,7 +34,6 @@ public class Animal
         for(MoveDirection direction : directions)
             move(direction);
     }
-
     public void move(String[] arguments) {
         MoveDirection[] directions = new OptionsParser().parse(arguments);
 
@@ -77,11 +54,6 @@ public class Animal
             changePosition(animalOrientation.next().next().toUnitVector());
     }
 
-    public Vector2d getAnimalPosition()
-    {
-        return animalPosition;
-    }
-
     //endregion
 
     //region private
@@ -92,10 +64,21 @@ public class Animal
     }
 
     private void changePosition(Vector2d movement) {
-        Vector2d tmp = animalPosition.add(movement);
+        Vector2d tmp = position.add(movement);
 
-        if(worldMap.canMoveTo(tmp))
-            animalPosition = tmp;
+
+        if(!_worldMap.canMoveTo(tmp))
+        {
+            AbstractWorldMapElement element = (AbstractWorldMapElement) _worldMap.objectAt(tmp);
+            if(element instanceof Grass)
+            {
+                position = tmp;
+                _worldMap.removeElement(element);
+            }
+            return;
+        }
+
+        position = tmp;
     }
 
     //endregion
@@ -105,7 +88,7 @@ public class Animal
     @Override
     public String toString()
     {
-        return String.format("%s", animalOrientation.toStringShort());
+        return String.format("%s", animalOrientation.toString());
     }
 
     //endregion

@@ -1,6 +1,6 @@
 package agh.ics.oop.Interfaces;
 
-import agh.ics.oop.Animal;
+import agh.ics.oop.Abstracts.AbstractWorldMapElement;
 import agh.ics.oop.Vector2d;
 
 /**
@@ -23,11 +23,11 @@ public interface IWorldMap {
     /**
      * Place a animal on the map.
      *
-     * @param animal
-     *            The animal to place on the map.
+     * @param element
+     *            The element to place on the map.
      * @return True if the animal was placed. The animal cannot be placed if the map is already occupied.
      */
-    boolean place(Animal animal);
+    boolean placeElement(AbstractWorldMapElement element);
 
     /**
      * Return true if given position on the map is occupied. Should not be
@@ -48,4 +48,13 @@ public interface IWorldMap {
      * @return Object or null if the position is not occupied.
      */
     Object objectAt(Vector2d position);
+
+    /**
+     * Removes element at given position.
+     *
+     * @param element
+     *            Element of the map.
+     */
+    void removeElement(AbstractWorldMapElement element);
+
 }

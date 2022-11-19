@@ -13,6 +13,7 @@ import static java.lang.System.out;
 public class World
 {
     public static void main(String[] args) {
+
         MoveDirection[] directions = new OptionsParser().parse(args);
         IWorldMap map = new RectangularMap(10, 5);
         Vector2d[] positions = { new Vector2d(2,2), new Vector2d(3,4) };
@@ -22,8 +23,19 @@ public class World
         out.println(map);
 
         //Swing
-        MoveDirection[] new_directions = new OptionsParser().parse(args);
+        /*MoveDirection[] new_directions = new OptionsParser().parse(args);
         map = new RectangularMap(10, 5);
+        Vector2d[] new_positions = { new Vector2d(2,2), new Vector2d(3,4) };
+        ISwingEngine new_engine = new SimulationEngine(new_directions, map, new_positions);
+        try {
+            new_engine.run(1000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }//*/
+
+        //Swing Grass Field
+        MoveDirection[] new_directions = new OptionsParser().parse(args);
+        map = new GrassField(10);
         Vector2d[] new_positions = { new Vector2d(2,2), new Vector2d(3,4) };
         ISwingEngine new_engine = new SimulationEngine(new_directions, map, new_positions);
         try {

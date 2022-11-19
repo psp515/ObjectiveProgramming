@@ -36,7 +36,7 @@ public class SimulationEngine implements IEngine, ISwingEngine {
                 /* creating animal and specyfing map automatically asigns animal to map or
                 * throws exception when position is already taken
                 *  */
-                Animal animal = new Animal(worldMap, position);
+                Animal animal = new Animal(position, worldMap);
                 animals.add(animal);
             }
             catch (IllegalArgumentException e) {
@@ -62,19 +62,15 @@ public class SimulationEngine implements IEngine, ISwingEngine {
     public void run(int frameDelay)  {
 
         //Setup
-        if(frameDelay < 10)
-            frameDelay = 10;
+        if(frameDelay < 100)
+            frameDelay = 100;
 
         JLabel map = new JLabel("Loading...", SwingConstants.CENTER);
-        JLabel position = new JLabel("", SwingConstants.CENTER);
-        JLabel action = new JLabel("", SwingConstants.CENTER);
-        Visualize(map, position, action);
+        Visualize(map);
 
         try {
             Thread.sleep(frameDelay);
-            map.setText(HTMLWorldMap());
-            position.setText("Position: --");
-            action.setText("Action: --");
+            map.setText(HTMLWorldMap("Position: --","Action: --"));
             Thread.sleep(frameDelay);
         } catch (InterruptedException e) {
             out.println("Error");
@@ -85,10 +81,8 @@ public class SimulationEngine implements IEngine, ISwingEngine {
         for(MoveDirection direction: _directions)
         {
             Animal animated_animal = animals.get(i%animals.size());
-            position.setText("Position: " + animated_animal.getAnimalPosition().toString() + " " + animated_animal);
-            action.setText("Action: " + direction);
             animated_animal.move(direction);
-            map.setText(HTMLWorldMap());
+            map.setText(HTMLWorldMap("Position: " + animated_animal.getPosition().toString() + " " + animated_animal,"Action: " + direction));
 
             try {
                 Thread.sleep(frameDelay);
@@ -105,21 +99,21 @@ public class SimulationEngine implements IEngine, ISwingEngine {
 
     //region Privates
 
-    private String HTMLWorldMap()
+    private String HTMLWorldMap(String pos, String act)
     {
-        return "<html>" + _worldMap.toString().replaceAll("\n", "<br/>") + "</html>";
+        return "<html>" + _worldMap.toString().replaceAll("\n", "<br/>") +
+                "<br/>" + act +
+                "<br/>" + pos + "</html>";
     }
 
-    private void Visualize(JLabel map, JLabel position, JLabel action)
+    private void Visualize(JLabel map)
     {
         JFrame frame = new JFrame("Map Animation");
         JPanel panel = new JPanel();
         panel.setLayout(new FlowLayout());
         panel.add(map);
-        panel.add(position);
-        panel.add(action);
         frame.add(panel);
-        frame.setSize(256,256);
+        frame.setSize(1000,1000);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
     }

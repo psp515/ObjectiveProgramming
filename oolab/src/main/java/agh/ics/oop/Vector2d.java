@@ -1,6 +1,8 @@
 package agh.ics.oop;
 
 import java.util.Objects;
+import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class Vector2d
 {
@@ -50,6 +52,13 @@ public class Vector2d
     public Vector2d opposite()
     {
         return new Vector2d(-this.x, -this.y);
+    }
+
+    public static Vector2d randomVector(int start, int stop)
+    {
+        int x = ThreadLocalRandom.current().nextInt(start, stop + 1);
+        int y = ThreadLocalRandom.current().nextInt(start, stop + 1);
+        return new Vector2d(x, y);
     }
 
     //endregion

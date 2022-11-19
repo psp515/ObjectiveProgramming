@@ -1,43 +1,18 @@
 package agh.ics.oop;
 
-import agh.ics.oop.Interfaces.IWorldMap;
+import agh.ics.oop.Abstracts.AbstractWorldMap;
+import agh.ics.oop.Abstracts.AbstractWorldMapElement;
+import agh.ics.oop.tools.MapVisualizer;
 
-import static java.lang.Integer.MAX_VALUE;
-import static java.lang.Integer.MIN_VALUE;
 
-public class GrassField implements IWorldMap {
+public class GrassField extends AbstractWorldMap {
 
-    public GrassField(int numOfGrass)
-    {
+    private final int numberOfGrass;
+
+    protected GrassField(int numberOfGrass) {
+        super(new Vector2d(Integer.MIN_VALUE,Integer.MIN_VALUE), new Vector2d(Integer.MAX_VALUE,Integer.MAX_VALUE));
+        this.numberOfGrass = numberOfGrass;
         GenerateGrass();
-
-    }
-
-    @Override
-    public boolean canMoveTo(Vector2d position) {
-        return isOccupied(position) &&
-                position.follows(new Vector2d(MIN_VALUE,MIN_VALUE)) &&
-                position.follows(new Vector2d(MAX_VALUE,MAX_VALUE)) ;
-    }
-
-    @Override
-    public boolean place(Animal animal) {
-        return false;
-    }
-
-    @Override
-    public boolean isOccupied(Vector2d position) {
-        return false;
-    }
-
-    @Override
-    public Object objectAt(Vector2d position) {
-        return null;
-    }
-
-    @Override
-    public String toString(){
-        return "";
     }
 
 
@@ -45,9 +20,34 @@ public class GrassField implements IWorldMap {
 
     private void GenerateGrass()
     {
-        //TODO
+        int max_grass = (int) Math.sqrt(10*numberOfGrass);
+
+        int noGrass = 0;
+
+        while (noGrass<numberOfGrass)
+        {
+            Vector2d v = null;
+
+            if(!this.placeElement(new Grass(Vector2d.randomVector(0, max_grass))))
+                noGrass += 1;
+        }
     }
 
     //endregion
 
+    @Override
+    public String toString()
+    {
+        Vector2d min = new Vector2d(0,0);
+        Vector2d max = new Vector2d((int)numberOfGrass,(int)numberOfGrass);
+
+
+        for(AbstractWorldMapElement element : Elements)
+        {
+            min = min.lowerLeft(element.getPosition());
+            max = max.upperRight(element.getPosition());
+        }
+
+        return new MapVisualizer(this).draw(min, max);
+    }
 }

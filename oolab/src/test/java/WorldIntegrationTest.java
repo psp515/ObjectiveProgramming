@@ -12,6 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class WorldIntegrationTest
 {
+    /*
     @Test
     public void StackTest() {
         String[] args = {"f","b","r","l","f","f","r","r","f","f","f","f","f","f"};
@@ -76,5 +77,5 @@ public class WorldIntegrationTest
 
         return true;
     }
-
+*/
 }

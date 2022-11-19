@@ -1,22 +1,15 @@
 package agh.ics.oop;
 
-public class Grass {
+import agh.ics.oop.Abstracts.AbstractWorldMapElement;
 
-    private final Vector2d _position;
-
-    public Grass(Vector2d position){
-        this._position = position;
-    }
-
-    public Vector2d getVector()
+public class Grass extends AbstractWorldMapElement {
+    public Grass(Vector2d position)
     {
-        return _position;
+        super(position);
     }
-
     @Override
     public String toString()
     {
         return "*";
     }
-
 }
