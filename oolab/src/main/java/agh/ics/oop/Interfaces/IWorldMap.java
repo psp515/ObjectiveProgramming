@@ -47,7 +47,7 @@ public interface IWorldMap {
      *            The position of the object.
      * @return Object or null if the position is not occupied.
      */
-    Object objectAt(Vector2d position);
+    AbstractWorldMapElement objectAt(Vector2d position);
 
     /**
      * Removes element at given position.
@@ -57,4 +57,8 @@ public interface IWorldMap {
      */
     void removeElement(AbstractWorldMapElement element);
 
+    /**
+    * @return Number of elements on map.
+    * */
+    int getElementsSize();
 }

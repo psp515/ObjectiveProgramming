@@ -1,4 +1,4 @@
-package agh.ics.oop.tools;
+package agh.ics.oop.Tools;
 
 import agh.ics.oop.Animal;
 import agh.ics.oop.Enums.MoveDirection;
@@ -50,11 +50,11 @@ public class SimulationEngine implements IEngine, ISwingEngine {
     public void run()
     {
         int i = 0;
-        out.println(_worldMap.toString());
         for(MoveDirection direction: _directions)
         {
             animals.get(i%animals.size()).move(direction);
             i+=1;
+            //out.println(_worldMap.toString());
         }
     }
 

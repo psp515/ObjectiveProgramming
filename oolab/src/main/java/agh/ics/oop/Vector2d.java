@@ -54,6 +54,8 @@ public class Vector2d
         return new Vector2d(-this.x, -this.y);
     }
 
+    /*
+    * Returns random vector in square (start,start) - (stop,stop)*/
     public static Vector2d randomVector(int start, int stop)
     {
         int x = ThreadLocalRandom.current().nextInt(start, stop + 1);

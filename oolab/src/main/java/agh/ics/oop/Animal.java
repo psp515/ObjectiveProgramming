@@ -4,9 +4,7 @@ import agh.ics.oop.Abstracts.AbstractWorldMapElement;
 import agh.ics.oop.Enums.MapDirection;
 import agh.ics.oop.Enums.MoveDirection;
 import agh.ics.oop.Interfaces.IWorldMap;
-import agh.ics.oop.tools.OptionsParser;
-
-import static java.lang.System.out;
+import agh.ics.oop.Tools.OptionsParser;
 
 public class Animal extends AbstractWorldMapElement
 {
@@ -66,14 +64,15 @@ public class Animal extends AbstractWorldMapElement
     private void changePosition(Vector2d movement) {
         Vector2d tmp = position.add(movement);
 
-
         if(!_worldMap.canMoveTo(tmp))
         {
             AbstractWorldMapElement element = (AbstractWorldMapElement) _worldMap.objectAt(tmp);
             if(element instanceof Grass)
             {
+                GrassField map = (GrassField) _worldMap;
+                map.removeElement(element);
                 position = tmp;
-                _worldMap.removeElement(element);
+                map.GrowGrass(1);
             }
             return;
         }

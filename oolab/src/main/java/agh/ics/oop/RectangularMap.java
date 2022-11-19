@@ -8,7 +8,4 @@ public class RectangularMap extends AbstractWorldMap {
         super(new Vector2d(0,0), new Vector2d(width, height));
     }
 
-
-
-    //endregion
 }

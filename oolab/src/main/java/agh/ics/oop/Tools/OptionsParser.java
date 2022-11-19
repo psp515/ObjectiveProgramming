@@ -1,4 +1,4 @@
-package agh.ics.oop.tools;
+package agh.ics.oop.Tools;
 
 import agh.ics.oop.Enums.MoveDirection;
 

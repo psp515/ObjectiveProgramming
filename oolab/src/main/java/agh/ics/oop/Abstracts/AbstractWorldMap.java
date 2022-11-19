@@ -2,7 +2,7 @@ package agh.ics.oop.Abstracts;
 
 import agh.ics.oop.Interfaces.IWorldMap;
 import agh.ics.oop.Vector2d;
-import agh.ics.oop.tools.MapVisualizer;
+import agh.ics.oop.Tools.MapVisualizer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,7 +52,7 @@ public abstract class AbstractWorldMap implements IWorldMap {
     }
 
     @Override
-    public Object objectAt(Vector2d position)
+    public AbstractWorldMapElement objectAt(Vector2d position)
     {
         return Elements.stream().filter(x->x.isAt(position)).findAny().orElse(null);
     }
@@ -66,6 +66,23 @@ public abstract class AbstractWorldMap implements IWorldMap {
     @Override
     public String toString()
     {
-        return new MapVisualizer(this).draw(leftBottom, rightUpper);
+        return new MapVisualizer(this).draw(getLeftBottom(), getRightUpper());
     }
+
+    @Override
+    public int getElementsSize(){return Elements.size();}
+
+    //region Protected
+
+    protected Vector2d getLeftBottom()
+    {
+        return leftBottom;
+    }
+
+    protected Vector2d getRightUpper()
+    {
+        return rightUpper;
+    }
+
+    //endregion
 }

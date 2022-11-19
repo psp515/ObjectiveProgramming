@@ -1,8 +1,9 @@
 package agh.ics.oop.Abstracts;
 
+import agh.ics.oop.Interfaces.IWorldMapElement;
 import agh.ics.oop.Vector2d;
 
-public class AbstractWorldMapElement {
+public abstract class AbstractWorldMapElement implements IWorldMapElement {
 
     protected Vector2d position;
 

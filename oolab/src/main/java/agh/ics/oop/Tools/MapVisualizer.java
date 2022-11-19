@@ -1,4 +1,4 @@
-package agh.ics.oop.tools;
+package agh.ics.oop.Tools;
 
 import agh.ics.oop.Interfaces.IWorldMap;
 import agh.ics.oop.Vector2d;
@@ -10,7 +10,7 @@ import agh.ics.oop.Vector2d;
  * @author apohllo
  */
 public class MapVisualizer {
-    private static final String EMPTY_CELL = " ";
+    private static final String EMPTY_CELL = "_";
     private static final String FRAME_SEGMENT = "-";
     private static final String CELL_SEGMENT = "|";
     private IWorldMap map;

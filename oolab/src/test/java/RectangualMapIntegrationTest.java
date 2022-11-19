@@ -1,18 +1,18 @@
-import agh.ics.oop.*;
 import agh.ics.oop.Enums.MoveDirection;
 import agh.ics.oop.Interfaces.IEngine;
 import agh.ics.oop.Interfaces.IWorldMap;
-import agh.ics.oop.tools.OptionsParser;
-import agh.ics.oop.tools.SimulationEngine;
+import agh.ics.oop.RectangularMap;
+import agh.ics.oop.Tools.OptionsParser;
+import agh.ics.oop.Tools.SimulationEngine;
+import agh.ics.oop.Vector2d;
 import org.junit.jupiter.api.Test;
 
 import static java.lang.System.out;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class WorldIntegrationTest
+public class RectangualMapIntegrationTest
 {
-    /*
+
     @Test
     public void StackTest() {
         String[] args = {"f","b","r","l","f","f","r","r","f","f","f","f","f","f"};
@@ -77,5 +77,5 @@ public class WorldIntegrationTest
 
         return true;
     }
-*/
+
 }
