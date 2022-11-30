@@ -2,6 +2,10 @@ package agh.ics.oop;
 
 import agh.ics.oop.Abstracts.AbstractWorldMap;
 import agh.ics.oop.Abstracts.AbstractWorldMapElement;
+import agh.ics.oop.Tools.MapBoundary;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 import static java.lang.System.out;
 
@@ -10,14 +14,26 @@ public class GrassField extends AbstractWorldMap {
 
     public final int numberOfGrass;
     private final int lastGroundForGrass;
+    public final MapBoundary _boundary;
 
     public GrassField(int numberOfGrass) {
         super(new Vector2d(Integer.MIN_VALUE,Integer.MIN_VALUE), new Vector2d(Integer.MAX_VALUE,Integer.MAX_VALUE));
         this.numberOfGrass = numberOfGrass;
         lastGroundForGrass = (int) Math.sqrt(10*numberOfGrass);
+        _boundary = new MapBoundary();
         GrowGrass(numberOfGrass);
-        /*Zakładam że grass map działa podobnie jak mapa w minecrafcie
-        tzn nie da sie za nia wyjsc tylko przenosi nas na wspołrzedne po drugiej stronie mapy*/
+
+    }
+
+    public GrassField(ArrayList<Grass> array) {
+        //Tylko dla testów
+        super(new Vector2d(Integer.MIN_VALUE,Integer.MIN_VALUE), new Vector2d(Integer.MAX_VALUE,Integer.MAX_VALUE));
+        this.numberOfGrass = array.size();
+        lastGroundForGrass = (int) Math.sqrt(10*numberOfGrass);
+        _boundary = new MapBoundary();
+
+        for(Grass grass :array)
+            this.place(grass);
     }
 
 
@@ -26,10 +42,16 @@ public class GrassField extends AbstractWorldMap {
     //endregion
 
     @Override
+    public void positionChanged(Vector2d oldPosition, Vector2d newPosition) {
+        super.positionChanged(oldPosition, newPosition);
+        _boundary.positionChanged(oldPosition, newPosition);
+    }
+
+    @Override
     public boolean place(AbstractWorldMapElement element)
     {
         if(!element.getPosition().follows(this.leftBottom) || !element.getPosition().precedes(this.rightUpper))
-            return false;
+            throw new IllegalArgumentException("Position "+element.getPosition()+" is already occupied.");
 
         if(isOccupied(element.getPosition()))
         {
@@ -37,6 +59,7 @@ public class GrassField extends AbstractWorldMap {
 
             if(elementOnPosition instanceof Grass && element instanceof Animal)
             {
+                //Nie ma wpływu na boundary bo trawa znika i pojawia sie w jej miejsce zwierzak
                 this.removeElement(elementOnPosition);
                 Elements.put(element.getPosition(),element);
                 Animal tmp = (Animal) element;
@@ -49,6 +72,7 @@ public class GrassField extends AbstractWorldMap {
         }
 
         Elements.put(element.getPosition(),element);
+        _boundary.positionChanged(null, element.getPosition());
 
         if(element instanceof Animal)
         {
@@ -60,28 +84,16 @@ public class GrassField extends AbstractWorldMap {
     }
 
     @Override
-    protected Vector2d getLeftBottom(){
-        Vector2d min = new Vector2d(0,0);
-
-        for(Vector2d element : Elements.keySet())
-            min = min.lowerLeft(element);
-
-        return min;
+    protected Vector2d getMapLeftBottom(){
+        return _boundary.lowerLeft();
     }
 
     @Override
-    protected Vector2d getRightUpper(){
-        Vector2d max = new Vector2d(0,0);
-
-        for(Vector2d element : Elements.keySet())
-            max = max.upperRight(element);
-
-        return max;
+    protected Vector2d getMapRightUpper(){
+        return _boundary.upperRight();
     }
 
-    public void GrowGrass(int numberOfNewGrass)
-    {
-        //TODO : refactor
+    public void GrowGrass(int numberOfNewGrass) {
         int counter = 0;
         int total_count = 0;
         while (counter < numberOfNewGrass)
@@ -91,6 +103,7 @@ public class GrassField extends AbstractWorldMap {
             if(!this.isOccupied(newPos))
             {
                 this.place(new Grass(newPos));
+                _boundary.positionChanged(null, newPos);
                 counter += 1;
             }
 

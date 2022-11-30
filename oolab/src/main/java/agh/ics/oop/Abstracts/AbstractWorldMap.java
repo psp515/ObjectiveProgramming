@@ -6,9 +6,7 @@ import agh.ics.oop.Interfaces.IWorldMap;
 import agh.ics.oop.Vector2d;
 import agh.ics.oop.Tools.MapVisualizer;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObserver {
@@ -79,7 +77,7 @@ public abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObse
     @Override
     public String toString()
     {
-        return new MapVisualizer(this).draw(getLeftBottom(), getRightUpper());
+        return new MapVisualizer(this).draw(getMapLeftBottom(), getMapRightUpper());
     }
 
     @Override
@@ -95,12 +93,12 @@ public abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObse
 
     //region Protected
 
-    protected Vector2d getLeftBottom()
+    protected Vector2d getMapLeftBottom()
     {
         return leftBottom;
     }
 
-    protected Vector2d getRightUpper()
+    protected Vector2d getMapRightUpper()
     {
         return rightUpper;
     }
