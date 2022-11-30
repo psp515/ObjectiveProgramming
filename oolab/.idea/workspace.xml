@@ -61,7 +61,7 @@
       <recent name="$PROJECT_DIR$/src/main/java" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.RectangualMapIntegrationTest">
+  <component name="RunManager" selected="Gradle.Vector2dTest.hashTest">
     <configuration name="World" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="agh.ics.oop.World" />
       <module name="oolab.main" />
@@ -145,14 +145,39 @@
       <DebugAllEnabled>false</DebugAllEnabled>
       <method v="2" />
     </configuration>
+    <configuration name="Vector2dTest.hashTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;Vector2dTest.hashTest&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
+    </configuration>
     <list>
       <item itemvalue="Application.World" />
       <item itemvalue="Gradle.RectangualMapIntegrationTest" />
       <item itemvalue="Gradle.RectangualMapIntegrationTest.StackTest" />
+      <item itemvalue="Gradle.Vector2dTest.hashTest" />
       <item itemvalue="Gradle.GrassFieldIntegrationTest" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.Vector2dTest.hashTest" />
         <item itemvalue="Gradle.RectangualMapIntegrationTest" />
         <item itemvalue="Gradle.RectangualMapIntegrationTest.StackTest" />
         <item itemvalue="Gradle.GrassFieldIntegrationTest" />
