@@ -61,4 +61,8 @@ public interface IWorldMap {
     * @return Number of elements on map.
     * */
     int getElementsSize();
+
+    Vector2d getMapLeftBottom();
+
+    Vector2d getMapRightUpper();
 }

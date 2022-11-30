@@ -4,7 +4,6 @@ import agh.ics.oop.Abstracts.AbstractWorldMap;
 import agh.ics.oop.Abstracts.AbstractWorldMapElement;
 import agh.ics.oop.Tools.MapBoundary;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import static java.lang.System.out;
@@ -14,13 +13,13 @@ public class GrassField extends AbstractWorldMap {
 
     public final int numberOfGrass;
     private final int lastGroundForGrass;
-    public final MapBoundary _boundary;
+    public final MapBoundary boundary;
 
     public GrassField(int numberOfGrass) {
         super(new Vector2d(Integer.MIN_VALUE,Integer.MIN_VALUE), new Vector2d(Integer.MAX_VALUE,Integer.MAX_VALUE));
         this.numberOfGrass = numberOfGrass;
         lastGroundForGrass = (int) Math.sqrt(10*numberOfGrass);
-        _boundary = new MapBoundary();
+        boundary = new MapBoundary();
         GrowGrass(numberOfGrass);
 
     }
@@ -30,7 +29,7 @@ public class GrassField extends AbstractWorldMap {
         super(new Vector2d(Integer.MIN_VALUE,Integer.MIN_VALUE), new Vector2d(Integer.MAX_VALUE,Integer.MAX_VALUE));
         this.numberOfGrass = array.size();
         lastGroundForGrass = (int) Math.sqrt(10*numberOfGrass);
-        _boundary = new MapBoundary();
+        boundary = new MapBoundary();
 
         for(Grass grass :array)
             this.place(grass);
@@ -44,7 +43,7 @@ public class GrassField extends AbstractWorldMap {
     @Override
     public void positionChanged(Vector2d oldPosition, Vector2d newPosition) {
         super.positionChanged(oldPosition, newPosition);
-        _boundary.positionChanged(oldPosition, newPosition);
+        boundary.positionChanged(oldPosition, newPosition);
     }
 
     @Override
@@ -72,7 +71,7 @@ public class GrassField extends AbstractWorldMap {
         }
 
         Elements.put(element.getPosition(),element);
-        _boundary.positionChanged(null, element.getPosition());
+        boundary.positionChanged(null, element.getPosition());
 
         if(element instanceof Animal)
         {
@@ -84,13 +83,13 @@ public class GrassField extends AbstractWorldMap {
     }
 
     @Override
-    protected Vector2d getMapLeftBottom(){
-        return _boundary.lowerLeft();
+    public Vector2d getMapLeftBottom(){
+        return boundary.lowerLeft();
     }
 
     @Override
-    protected Vector2d getMapRightUpper(){
-        return _boundary.upperRight();
+    public Vector2d getMapRightUpper(){
+        return boundary.upperRight();
     }
 
     public void GrowGrass(int numberOfNewGrass) {
@@ -103,7 +102,7 @@ public class GrassField extends AbstractWorldMap {
             if(!this.isOccupied(newPos))
             {
                 this.place(new Grass(newPos));
-                _boundary.positionChanged(null, newPos);
+                boundary.positionChanged(null, newPos);
                 counter += 1;
             }
 

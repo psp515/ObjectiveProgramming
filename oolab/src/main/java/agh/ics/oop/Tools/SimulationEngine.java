@@ -3,23 +3,19 @@ package agh.ics.oop.Tools;
 import agh.ics.oop.Animal;
 import agh.ics.oop.Enums.MoveDirection;
 import agh.ics.oop.Interfaces.IEngine;
-import agh.ics.oop.Interfaces.ISwingEngine;
 import agh.ics.oop.Interfaces.IWorldMap;
 import agh.ics.oop.Vector2d;
 
-import javax.swing.*;
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import static java.lang.System.out;
-
-public class SimulationEngine implements IEngine, ISwingEngine {
+public class SimulationEngine implements IEngine {
 
     //region Fields
 
     private final MoveDirection[] _directions;
     private final IWorldMap _worldMap;
+    private final int _delay;
 
     public final List<Animal> animals = new ArrayList<Animal>();
 
@@ -27,8 +23,15 @@ public class SimulationEngine implements IEngine, ISwingEngine {
 
     public SimulationEngine(MoveDirection[] directions, IWorldMap worldMap, Vector2d[] startingAnimalsPosition) throws IllegalArgumentException
     {
+        this(directions,worldMap,startingAnimalsPosition, 500);
+    }
+
+    public SimulationEngine(MoveDirection[] directions, IWorldMap worldMap, Vector2d[] startingAnimalsPosition, int delay)
+            throws IllegalArgumentException
+    {
         _directions = directions;
         _worldMap = worldMap;
+        _delay = delay;
 
         for(Vector2d position : startingAnimalsPosition)
         {
@@ -46,70 +49,19 @@ public class SimulationEngine implements IEngine, ISwingEngine {
         {
             animals.get(i%animals.size()).move(direction);
             i+=1;
-            //out.println(_worldMap.toString());
         }
     }
 
-    @Override
-    public void run(int frameDelay)  {
+    //endregion
 
-        //Setup
-        if(frameDelay < 100)
-            frameDelay = 100;
-
-        JLabel map = new JLabel("Loading...", SwingConstants.CENTER);
-        Visualize(map);
-
+    //region Privates
+    private void sleep(int time) {
         try {
-            Thread.sleep(frameDelay);
-            map.setText(HTMLWorldMap("Position: --","Action: --"));
-            Thread.sleep(frameDelay);
-        } catch (InterruptedException e) {
-            out.println("Error");
+            Thread.sleep(time);
+        } catch (InterruptedException ex) {
+            System.out.println("Thread sleep error");
         }
-
-        //Start Simulation
-        int i = 0;
-        for(MoveDirection direction: _directions)
-        {
-            Animal animated_animal = animals.get(i%animals.size());
-            animated_animal.move(direction);
-            map.setText(HTMLWorldMap("Position: " + animated_animal.getPosition().toString() + " " + animated_animal,"Action: " + direction));
-
-            try {
-                Thread.sleep(frameDelay);
-            }
-            catch (InterruptedException e) {
-                out.println("Error");
-            }
-            finally {
-                i+=1;
-            }
-        }
-    }
-    //endregion
-
-    //region Privates
-
-    private String HTMLWorldMap(String pos, String act)
-    {
-        return "<html>" + _worldMap.toString().replaceAll("\n", "<br/>") +
-                "<br/>" + act +
-                "<br/>" + pos + "</html>";
-    }
-
-    private void Visualize(JLabel map)
-    {
-        JFrame frame = new JFrame("Map Animation");
-        JPanel panel = new JPanel();
-        panel.setLayout(new FlowLayout());
-        panel.add(map);
-        frame.add(panel);
-        frame.setSize(1000,1000);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setVisible(true);
     }
 
     //endregion
-
 }

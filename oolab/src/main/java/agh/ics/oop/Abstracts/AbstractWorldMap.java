@@ -93,12 +93,12 @@ public abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObse
 
     //region Protected
 
-    protected Vector2d getMapLeftBottom()
+    public Vector2d getMapLeftBottom()
     {
         return leftBottom;
     }
 
-    protected Vector2d getMapRightUpper()
+    public Vector2d getMapRightUpper()
     {
         return rightUpper;
     }
