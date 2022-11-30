@@ -14,19 +14,19 @@ public class World
 {
     public static void main(String[] args) {
 
-
         MoveDirection[] directions = new OptionsParser().parse(args);
         IWorldMap map;
         IEngine engine;
         ISwingEngine swingEngine;
         Vector2d[] positions = { new Vector2d(2,2), new Vector2d(3,4) };
 
+        // f b r l f f r r f f f f f f f f
 
-        map = new GrassField(10);
+        /* map = new GrassField(10);
         engine = new SimulationEngine(directions, map, positions);
         out.println(map);
         engine.run();
-        out.println(map);
+        out.println(map);*/
 
         //Swing Grass Field
         map = new GrassField(10);

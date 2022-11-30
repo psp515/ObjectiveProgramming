@@ -3,15 +3,21 @@ package agh.ics.oop;
 import agh.ics.oop.Abstracts.AbstractWorldMapElement;
 import agh.ics.oop.Enums.MapDirection;
 import agh.ics.oop.Enums.MoveDirection;
+import agh.ics.oop.Interfaces.INotifyObserver;
+import agh.ics.oop.Interfaces.IPositionChangeObserver;
 import agh.ics.oop.Interfaces.IWorldMap;
 import agh.ics.oop.Tools.OptionsParser;
 
-public class Animal extends AbstractWorldMapElement
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
+public class Animal extends AbstractWorldMapElement implements INotifyObserver
 {
     //region Properties
     private MapDirection animalOrientation;
     public final IWorldMap _worldMap;
 
+    private ArrayList<IPositionChangeObserver> Observers = new ArrayList<>();
     //endregion
 
     public Animal(Vector2d initialPosition, IWorldMap worldMap) {
@@ -21,6 +27,7 @@ public class Animal extends AbstractWorldMapElement
 
         if(!worldMap.placeElement(this))
             throw new IllegalArgumentException(String.format("Postion %s is already occupied.", initialPosition.toString()));
+
     }
 
     //region public
@@ -62,22 +69,25 @@ public class Animal extends AbstractWorldMapElement
     }
 
     private void changePosition(Vector2d movement) {
-        Vector2d tmp = position.add(movement);
+        Vector2d oldPosition = position;
+        Vector2d newPosition = oldPosition.add(movement);
 
-        if(!_worldMap.canMoveTo(tmp))
+        if(!_worldMap.canMoveTo(newPosition))
         {
-            AbstractWorldMapElement element = (AbstractWorldMapElement) _worldMap.objectAt(tmp);
+            AbstractWorldMapElement element = _worldMap.objectAt(newPosition);
             if(element instanceof Grass)
             {
                 GrassField map = (GrassField) _worldMap;
                 map.removeElement(element);
-                position = tmp;
+                position = newPosition;
+                positionChanged(oldPosition, newPosition);
                 map.GrowGrass(1);
             }
             return;
         }
 
-        position = tmp;
+        position = newPosition;
+        positionChanged(oldPosition, newPosition);
     }
 
     //endregion
@@ -88,6 +98,23 @@ public class Animal extends AbstractWorldMapElement
     public String toString()
     {
         return String.format("%s", animalOrientation.toString());
+    }
+
+    @Override
+    public void addObserver(IPositionChangeObserver observer)
+    {
+        Observers.add(observer);
+    }
+    @Override
+    public void removeObserver(IPositionChangeObserver observer) {
+        Observers.remove(observer);
+    }
+
+    @Override
+    public void positionChanged(Vector2d oldPosition, Vector2d newPosition) {
+        for(IPositionChangeObserver observer : Observers) {
+            observer.positionChanged(oldPosition, newPosition);
+        }
     }
 
     //endregion

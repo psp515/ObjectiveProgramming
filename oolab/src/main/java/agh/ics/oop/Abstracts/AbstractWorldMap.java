@@ -1,20 +1,24 @@
 package agh.ics.oop.Abstracts;
 
+import agh.ics.oop.Animal;
+import agh.ics.oop.Interfaces.IPositionChangeObserver;
 import agh.ics.oop.Interfaces.IWorldMap;
 import agh.ics.oop.Vector2d;
 import agh.ics.oop.Tools.MapVisualizer;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-public abstract class AbstractWorldMap implements IWorldMap {
+public abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObserver {
 
     //region Fields
     public final Vector2d leftBottom;
     public final Vector2d rightUpper;
 
     /* Collection is private because nobody should be able to change animals without verification */
-    protected List<AbstractWorldMapElement> Elements = new ArrayList<AbstractWorldMapElement>();
+    protected Map<Vector2d,AbstractWorldMapElement> Elements = new HashMap<>();
 
     //endregion
 
@@ -36,7 +40,13 @@ public abstract class AbstractWorldMap implements IWorldMap {
         /*We place element only if positions is empty*/
         if(canMoveTo(element.getPosition()))
         {
-            Elements.add(element);
+            if(element instanceof Animal)
+            {
+                Animal tmp = (Animal) element;
+                tmp.addObserver(this);
+            }
+
+            Elements.put(element.getPosition(), element);
             return true;
         }
 
@@ -48,19 +58,22 @@ public abstract class AbstractWorldMap implements IWorldMap {
         if(Elements.size()==0)
             return false;
 
-        return Elements.stream().anyMatch(x->x.isAt(position));
+        return Elements.containsKey(position);
     }
 
     @Override
     public AbstractWorldMapElement objectAt(Vector2d position)
     {
-        return Elements.stream().filter(x->x.isAt(position)).findAny().orElse(null);
+        if(isOccupied(position))
+            return Elements.get(position);
+
+        return null;
     }
 
     @Override
     public void removeElement(AbstractWorldMapElement element)
     {
-        Elements.remove(element);
+        Elements.remove(element.getPosition());
     }
 
     @Override
@@ -71,6 +84,14 @@ public abstract class AbstractWorldMap implements IWorldMap {
 
     @Override
     public int getElementsSize(){return Elements.size();}
+
+    public void positionChanged(Vector2d oldPosition, Vector2d newPosition) {
+        AbstractWorldMapElement element = Elements.get(oldPosition);
+        if(element == null)
+            return;
+        Elements.remove(oldPosition);
+        Elements.put(newPosition, element);
+    }
 
     //region Protected
 

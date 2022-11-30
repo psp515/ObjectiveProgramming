@@ -39,7 +39,9 @@ public class GrassField extends AbstractWorldMap {
             if(elementOnPosition instanceof Grass && element instanceof Animal)
             {
                 this.removeElement(elementOnPosition);
-                Elements.add(element);
+                Elements.put(element.getPosition(),element);
+                Animal tmp = (Animal) element;
+                tmp.addObserver(this);
                 GrowGrass(1);
                 return true;
             }
@@ -47,7 +49,14 @@ public class GrassField extends AbstractWorldMap {
             return false;
         }
 
-        Elements.add(element);
+        Elements.put(element.getPosition(),element);
+
+        if(element instanceof Animal)
+        {
+            Animal tmp = (Animal) element;
+            tmp.addObserver(this);
+        }
+
         return true;
     }
 
@@ -55,8 +64,8 @@ public class GrassField extends AbstractWorldMap {
     protected Vector2d getLeftBottom(){
         Vector2d min = new Vector2d(0,0);
 
-        for(AbstractWorldMapElement element : Elements)
-            min = min.lowerLeft(element.getPosition());
+        for(Vector2d element : Elements.keySet())
+            min = min.lowerLeft(element);
 
         return min;
     }
@@ -65,8 +74,8 @@ public class GrassField extends AbstractWorldMap {
     protected Vector2d getRightUpper(){
         Vector2d max = new Vector2d(0,0);
 
-        for(AbstractWorldMapElement element : Elements)
-            max = max.upperRight(element.getPosition());
+        for(Vector2d element : Elements.keySet())
+            max = max.upperRight(element);
 
         return max;
     }
