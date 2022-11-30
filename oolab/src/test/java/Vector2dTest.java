@@ -22,6 +22,14 @@ public class Vector2dTest
     //region Override Methods Tests
 
     @Test
+    public void hashTest()
+    {
+        assertEquals(new Vector2d(3,3).hashCode(), new Vector2d(3,3).hashCode());
+        assertEquals(new Vector2d(1,2).hashCode(), new Vector2d(1,2).hashCode());
+        assertEquals(new Vector2d(1,1).hashCode(), new Vector2d(1,1).hashCode());
+    }
+
+    @Test
     public void equalsTest()
     {
         Boolean[][] equalsArray = {
