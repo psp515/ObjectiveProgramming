@@ -21,7 +21,15 @@ public class RectangualMapIntegrationTest
         Vector2d[] positions = { new Vector2d(2,2), new Vector2d(2,2), new Vector2d(2,2), new Vector2d(3,4) ,new Vector2d(2,2), new Vector2d(3,4) ,new Vector2d(2,2), new Vector2d(3,4)  };
         Vector2d[] finalPositions = {new Vector2d(2,0), new Vector2d(3,5) };
 
-        assertTrue(TestMap(directions,map,positions,finalPositions));
+        boolean exception = false;
+        try{
+            TestMap(directions,map,positions,finalPositions);
+        }
+        catch (IllegalArgumentException e)
+        {
+            exception = true;
+        }
+        assertTrue(exception);
     }
 
     @Test
@@ -49,7 +57,7 @@ public class RectangualMapIntegrationTest
         String[] args = {"f","b","r","l","f","f","r","r","f","f","f","f","f","f","f","f"};
         MoveDirection[] directions = new OptionsParser().parse(args);
         IWorldMap map = new RectangularMap(10, 5);
-        Vector2d[] positions = { new Vector2d(2,2), new Vector2d(3,4) , new Vector2d(2,2), new Vector2d(3,4) };
+        Vector2d[] positions = { new Vector2d(2,2), new Vector2d(3,4)  };
         Vector2d[] finalPositions = {new Vector2d(2,0), new Vector2d(3,5) };
 
         assertTrue(TestMap(directions,map,positions,finalPositions));

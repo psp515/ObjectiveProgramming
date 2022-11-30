@@ -6,7 +6,7 @@ import java.util.Arrays;
 
 public class OptionsParser
 {
-    public MoveDirection[] parse(String[] optionsToParse)
+    public MoveDirection[] parse(String[] optionsToParse) throws IllegalArgumentException
     {
         // ma pojawic sie wyjatek jezeli bedzie niepoprawny argument
         String[] parsed = Arrays.stream(optionsToParse).filter(OptionsParser::IsValidDirectionString).toArray(String[]::new);
@@ -24,9 +24,18 @@ public class OptionsParser
                     default -> MoveDirection.FORWARD;
                 };
     }
-    private static boolean IsValidDirectionString(String x)
+    private static boolean IsValidDirectionString(String x) throws IllegalArgumentException
     {
-        return x.equals("f") || x.equals("b") || x.equals("l") || x.equals("r") ||
-                x.equals("forward") || x.equals("backward") || x.equals("left") || x.equals("right");
+        if(x.equals("f") ||
+                x.equals("b") ||
+                x.equals("l") ||
+                x.equals("r") ||
+                x.equals("forward") ||
+                x.equals("backward") ||
+                x.equals("left") ||
+                x.equals("right"))
+            return true;
+
+        throw new IllegalArgumentException(x + " is not legal move specification");
     }
 }

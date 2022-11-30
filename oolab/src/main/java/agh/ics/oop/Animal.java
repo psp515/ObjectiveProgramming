@@ -8,7 +8,6 @@ import agh.ics.oop.Interfaces.IPositionChangeObserver;
 import agh.ics.oop.Interfaces.IWorldMap;
 import agh.ics.oop.Tools.OptionsParser;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Animal extends AbstractWorldMapElement implements INotifyObserver
@@ -24,10 +23,7 @@ public class Animal extends AbstractWorldMapElement implements INotifyObserver
         super(initialPosition);
         _worldMap = worldMap;
         animalOrientation = MapDirection.NORTH;
-
-        if(!worldMap.placeElement(this))
-            throw new IllegalArgumentException(String.format("Postion %s is already occupied.", initialPosition.toString()));
-
+        worldMap.place(this);
     }
 
     //region public

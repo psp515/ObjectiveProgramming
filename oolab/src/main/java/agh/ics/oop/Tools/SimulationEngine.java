@@ -25,23 +25,15 @@ public class SimulationEngine implements IEngine, ISwingEngine {
 
     //endregion
 
-    public SimulationEngine(MoveDirection[] directions, IWorldMap worldMap, Vector2d[] startingAnimalsPosition) {
+    public SimulationEngine(MoveDirection[] directions, IWorldMap worldMap, Vector2d[] startingAnimalsPosition) throws IllegalArgumentException
+    {
         _directions = directions;
         _worldMap = worldMap;
 
-        for(Vector2d position : startingAnimalsPosition) {
-
-            try {
-
-                /* creating animal and specyfing map automatically asigns animal to map or
-                * throws exception when position is already taken
-                *  */
-                Animal animal = new Animal(position, worldMap);
-                animals.add(animal);
-            }
-            catch (IllegalArgumentException e) {
-                out.printf("%s Animal not placed.%n",e);
-            }
+        for(Vector2d position : startingAnimalsPosition)
+        {
+            Animal animal = new Animal(position, worldMap);
+            animals.add(animal);
         }
     }
 

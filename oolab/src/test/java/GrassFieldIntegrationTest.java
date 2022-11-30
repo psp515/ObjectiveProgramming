@@ -32,7 +32,16 @@ public class GrassFieldIntegrationTest {
         Vector2d[] positions = { new Vector2d(2,2), new Vector2d(2,2), new Vector2d(2,2), new Vector2d(3,4) ,new Vector2d(2,2), new Vector2d(3,4) ,new Vector2d(2,2), new Vector2d(3,4)  };
         Vector2d[] finalPositions = {new Vector2d(2,3), new Vector2d(3,3) };
 
-        assertTrue(TestMap(directions,map,positions,finalPositions,12));
+        boolean exception = false;
+        try
+        {
+            TestMap(directions,map,positions,finalPositions,12);
+        }
+        catch (IllegalArgumentException e)
+        {
+            exception = true;
+        }
+        assertTrue(exception);
     }
 
     @Test
@@ -50,7 +59,7 @@ public class GrassFieldIntegrationTest {
         String[] args = {"f","b","r","l","f","f","r","r","f","f","f","f","f","f","f","f"};
         MoveDirection[] directions = new OptionsParser().parse(args);
         IWorldMap map = new GrassField(10);
-        Vector2d[] positions = { new Vector2d(2,2), new Vector2d(3,4) , new Vector2d(2,2), new Vector2d(3,4) };
+        Vector2d[] positions = { new Vector2d(2,2), new Vector2d(3,4)};
         Vector2d[] finalPositions = {new Vector2d(2,-1), new Vector2d(3,7) };
 
         assertTrue(TestMap(directions,map,positions,finalPositions,12));

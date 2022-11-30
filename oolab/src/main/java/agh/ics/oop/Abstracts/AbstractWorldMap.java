@@ -36,7 +36,7 @@ public abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObse
     }
 
     @Override
-    public boolean placeElement(AbstractWorldMapElement element) {
+    public boolean place(AbstractWorldMapElement element) {
         /*We place element only if positions is empty*/
         if(canMoveTo(element.getPosition()))
         {
@@ -50,7 +50,7 @@ public abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObse
             return true;
         }
 
-        return false;
+        throw new IllegalArgumentException("Position "+element.getPosition()+" is already occupied.");
     }
 
     @Override

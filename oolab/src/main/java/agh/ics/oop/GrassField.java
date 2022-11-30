@@ -2,7 +2,6 @@ package agh.ics.oop;
 
 import agh.ics.oop.Abstracts.AbstractWorldMap;
 import agh.ics.oop.Abstracts.AbstractWorldMapElement;
-import agh.ics.oop.Tools.MapVisualizer;
 
 import static java.lang.System.out;
 
@@ -27,7 +26,7 @@ public class GrassField extends AbstractWorldMap {
     //endregion
 
     @Override
-    public boolean placeElement(AbstractWorldMapElement element)
+    public boolean place(AbstractWorldMapElement element)
     {
         if(!element.getPosition().follows(this.leftBottom) || !element.getPosition().precedes(this.rightUpper))
             return false;
@@ -46,7 +45,7 @@ public class GrassField extends AbstractWorldMap {
                 return true;
             }
 
-            return false;
+            throw new IllegalArgumentException("Position "+element.getPosition()+" is already occupied.");
         }
 
         Elements.put(element.getPosition(),element);
@@ -82,13 +81,18 @@ public class GrassField extends AbstractWorldMap {
 
     public void GrowGrass(int numberOfNewGrass)
     {
+        //TODO : refactor
         int counter = 0;
         int total_count = 0;
         while (counter < numberOfNewGrass)
         {
-            if(this.placeElement(new Grass(Vector2d.randomVector(0, this.lastGroundForGrass))))
-                counter += 1;
+            Vector2d newPos = Vector2d.randomVector(0, this.lastGroundForGrass);
 
+            if(!this.isOccupied(newPos))
+            {
+                this.place(new Grass(newPos));
+                counter += 1;
+            }
 
             total_count += 1;
 
@@ -100,16 +104,22 @@ public class GrassField extends AbstractWorldMap {
         if(counter < numberOfNewGrass)
         {
             for(int i = 0; i < lastGroundForGrass;i++)
-                for(int j = 0; j < lastGroundForGrass; j ++)
+                for(int j = 0; j < lastGroundForGrass; j++)
                 {
-                    if(this.placeElement(new Grass(new Vector2d(i, j))))
+                    Vector2d newPos = Vector2d.randomVector(0, this.lastGroundForGrass);
+
+                    if(!this.isOccupied(newPos))
+                    {
+                        this.place(new Grass(newPos));
                         counter += 1;
+                    }
+
                     if (counter == numberOfGrass)
                         return;
                 }
         }
 
-        if(counter<numberOfNewGrass)
+        if(counter < numberOfNewGrass)
             out.println("Couldn't generate grass.");
     }
 }

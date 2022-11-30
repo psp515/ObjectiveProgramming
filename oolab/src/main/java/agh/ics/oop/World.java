@@ -14,30 +14,21 @@ public class World
 {
     public static void main(String[] args) {
 
-        MoveDirection[] directions = new OptionsParser().parse(args);
-        IWorldMap map;
-        IEngine engine;
-        ISwingEngine swingEngine;
-        Vector2d[] positions = { new Vector2d(2,2), new Vector2d(3,4) };
+        MoveDirection[] directions;
 
-        // f b r l f f r r f f f f f f f f
-
-        /* map = new GrassField(10);
-        engine = new SimulationEngine(directions, map, positions);
-        out.println(map);
-        engine.run();
-        out.println(map);*/
-
-        //Swing Grass Field
-        map = new GrassField(10);
-        swingEngine = new SimulationEngine(directions, map, positions);
-        try {
+        try
+        {
+            directions = new OptionsParser().parse(args);
+            IWorldMap map = new GrassField(20);
+            Vector2d[] positions = { new Vector2d(2,2), new Vector2d(3,4) };
+            ISwingEngine swingEngine = new SimulationEngine(directions, map, positions);
             swingEngine.run(1000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+        }
+        catch (InterruptedException | IllegalArgumentException e)
+        {
+            out.println(e.getMessage());
         }
 
-        /* Punkt 12 spełniony. */
         out.println("Finish");
     }
 }
