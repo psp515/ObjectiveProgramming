@@ -9,11 +9,11 @@ import agh.ics.oop.Vector2d;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SimulationEngine implements IEngine {
+public class SimulationEngine implements IEngine, Runnable {
 
     //region Fields
 
-    private final MoveDirection[] _directions;
+    private MoveDirection[] _directions;
     private final IWorldMap _worldMap;
     private final int _delay;
 

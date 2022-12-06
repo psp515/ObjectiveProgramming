@@ -91,9 +91,20 @@ public class Animal extends AbstractWorldMapElement implements INotifyObserver
     //region Overrides
 
     @Override
+    public String getImageString()
+    {
+        return RESOURCES_STRING + switch (this.animalOrientation) {
+        case NORTH -> "up";
+        case EAST -> "right";
+        case WEST -> "left";
+        case SOUTH -> "down";
+        } + ".png";
+    }
+
+    @Override
     public String toString()
     {
-        return String.format("%s", animalOrientation.toString());
+        return String.format("%s", position.toString());
     }
 
     @Override

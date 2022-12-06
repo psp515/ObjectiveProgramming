@@ -5,6 +5,8 @@ import agh.ics.oop.Vector2d;
 
 public abstract class AbstractWorldMapElement implements IWorldMapElement {
 
+    public static final String RESOURCES_STRING = "src/main/resources/";
+
     protected Vector2d position;
 
     public AbstractWorldMapElement(Vector2d position) {
