@@ -23,6 +23,9 @@ public class SimulationEngine implements IEngine, Runnable {
 
     public SimulationEngine(MoveDirection[] directions, IWorldMap worldMap, Vector2d[] startingAnimalsPosition) throws IllegalArgumentException
     {
+        // TODO : set directions to stop run
+        // TODO : each animal add observer app
+        // TODO :
         this(directions,worldMap,startingAnimalsPosition, 500);
     }
 

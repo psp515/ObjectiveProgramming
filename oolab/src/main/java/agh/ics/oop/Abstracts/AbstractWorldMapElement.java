@@ -5,6 +5,12 @@ import agh.ics.oop.Vector2d;
 
 public abstract class AbstractWorldMapElement implements IWorldMapElement {
 
+
+    public String getImageString()
+    {
+        return "";
+    }
+
     public static final String RESOURCES_STRING = "src/main/resources/";
 
     protected Vector2d position;

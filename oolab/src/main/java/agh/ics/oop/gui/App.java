@@ -4,6 +4,7 @@ import agh.ics.oop.Abstracts.AbstractWorldMapElement;
 import agh.ics.oop.Enums.MoveDirection;
 import agh.ics.oop.GrassField;
 import agh.ics.oop.Interfaces.IEngine;
+import agh.ics.oop.Interfaces.IPositionChangeObserver;
 import agh.ics.oop.Interfaces.IWorldMap;
 import agh.ics.oop.Tools.OptionsParser;
 import agh.ics.oop.Tools.SimulationEngine;
@@ -17,7 +18,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 import javafx.stage.Stage;
 
-public class App extends Application {
+public class App extends Application implements IPositionChangeObserver {
     public int windowWidth;
     public int windowHeight;
     public int gridSize = 20;
@@ -35,14 +36,23 @@ public class App extends Application {
         map = new GrassField(10);
         Vector2d[] positions = { new Vector2d(2,2), new Vector2d(3,4) };
         engine = new SimulationEngine(directions, map, positions);
+
+
+
+        // TODO : initialize view
+        // TODO : initialize engine
+        // TODO : while initialize SimulatorEngine for each anima add opserwer app
     }
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage primaryStage) throws Exception
+    {
 
         Scene scene = new Scene(drawGrid(map.getMapLeftBottom(), map.getMapRightUpper()), windowWidth, windowHeight);
         primaryStage.setScene(scene);
         primaryStage.show();
+        // TODO : initialize view with button and grid
+        // TODO : start engine on other thread
 
         engine.run();
     }
@@ -102,4 +112,9 @@ public class App extends Application {
         return grid;
     }
 
+    @Override
+    public void positionChanged(Vector2d oldPosition, Vector2d newPosition) {
+        // TODO : sleep time
+        // TODO :
+    }
 }
