@@ -77,7 +77,7 @@ public class GrassFieldIntegrationTest {
     }
 
     private boolean TestMap(MoveDirection[] directions, IWorldMap map, Vector2d[] startingPositions, Vector2d[] finalOccupiedPositions, int final_elements) {
-        IEngine engine = new SimulationEngine(directions, map, startingPositions);
+        IEngine engine = new SimulationEngine(directions, map, startingPositions,500);
         engine.run();
         out.println(map.toString());
 

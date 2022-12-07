@@ -17,23 +17,18 @@ public class GuiElementBox {
 
     public VBox container;
 
-    GuiElementBox(IWorldMapElement element
-    ) throws FileNotFoundException {
-        String url = element.getImageString();
+    GuiElementBox(IWorldMapElement element) throws FileNotFoundException {
 
-        this.image = url.length() > 0 ? new Image( new FileInputStream(url)) : null;
+        String url = element == null? "" : element.getImageString();
+        this.label = new Label(element == null? "" : element.toString());
+
+        this.image = !url.equals("") ? new Image( new FileInputStream(url)) : null;
         this.view = new ImageView(this.image);
-
-        this.view.setFitHeight(20);
-        this.view.setFitWidth(20);
-
-        this.label = new Label(element.toString() );
-
+        this.view.setFitHeight(40);
+        this.view.setFitWidth(40);
         this.container = new VBox();
-
         this.container.getChildren().add(this.view);
         this.container.getChildren().add(this.label);
-
         this.container.setAlignment(Pos.CENTER);
     }
 

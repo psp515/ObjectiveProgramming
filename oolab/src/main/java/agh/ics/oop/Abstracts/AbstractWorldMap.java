@@ -84,6 +84,9 @@ public abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObse
     public int getElementsSize(){return Elements.size();}
 
     public void positionChanged(Vector2d oldPosition, Vector2d newPosition) {
+        if(oldPosition == newPosition)
+            return;
+
         AbstractWorldMapElement element = Elements.get(oldPosition);
         if(element == null)
             return;

@@ -61,6 +61,7 @@ public class Animal extends AbstractWorldMapElement implements INotifyObserver
 
     private void turn(MapDirection direction)
     {
+        positionChanged(position, position);
         animalOrientation = direction;
     }
 

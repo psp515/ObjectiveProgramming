@@ -3,8 +3,10 @@ package agh.ics.oop.Tools;
 import agh.ics.oop.Animal;
 import agh.ics.oop.Enums.MoveDirection;
 import agh.ics.oop.Interfaces.IEngine;
+import agh.ics.oop.Interfaces.IPositionChangeObserver;
 import agh.ics.oop.Interfaces.IWorldMap;
 import agh.ics.oop.Vector2d;
+import javafx.application.Application;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,12 +23,19 @@ public class SimulationEngine implements IEngine, Runnable {
 
     //endregion
 
-    public SimulationEngine(MoveDirection[] directions, IWorldMap worldMap, Vector2d[] startingAnimalsPosition) throws IllegalArgumentException
+    public SimulationEngine(MoveDirection[] directions, IWorldMap worldMap, Vector2d[] startingAnimalsPosition, int delay, IPositionChangeObserver app)
+            throws IllegalArgumentException
     {
-        // TODO : set directions to stop run
-        // TODO : each animal add observer app
-        // TODO :
-        this(directions,worldMap,startingAnimalsPosition, 500);
+        _directions = directions;
+        _worldMap = worldMap;
+        _delay = delay;
+
+        for(Vector2d position : startingAnimalsPosition)
+        {
+            Animal animal = new Animal(position, worldMap);
+            animals.add(animal);
+            animal.addObserver(app);
+        }
     }
 
     public SimulationEngine(MoveDirection[] directions, IWorldMap worldMap, Vector2d[] startingAnimalsPosition, int delay)
@@ -41,6 +50,26 @@ public class SimulationEngine implements IEngine, Runnable {
             Animal animal = new Animal(position, worldMap);
             animals.add(animal);
         }
+
+    }
+
+    public SimulationEngine(IWorldMap worldMap, Vector2d[] startingAnimalsPosition, int delay, IPositionChangeObserver app) throws IllegalArgumentException
+    {
+        _worldMap = worldMap;
+        _delay = delay;
+
+        for(Vector2d position : startingAnimalsPosition)
+        {
+            Animal animal = new Animal(position, worldMap);
+            animals.add(animal);
+            animal.addObserver(app);
+        }
+    }
+
+
+    public void setDirections(MoveDirection[] directions)
+    {
+        this._directions = directions;
     }
 
     //region Overrides
@@ -57,14 +86,4 @@ public class SimulationEngine implements IEngine, Runnable {
 
     //endregion
 
-    //region Privates
-    private void sleep(int time) {
-        try {
-            Thread.sleep(time);
-        } catch (InterruptedException ex) {
-            System.out.println("Thread sleep error");
-        }
-    }
-
-    //endregion
 }
