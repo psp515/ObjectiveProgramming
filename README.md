@@ -40,9 +40,13 @@ For me in labs the most interesting were Design Patters, I have used here few li
 
 ### Built With
 
-* Java
-* JavaFx
-* Junit
+<div>
+  <a>
+    <img src="https://img.shields.io/badge/-Java-FFFFFF?logo=java" />
+    <img src="https://img.shields.io/badge/-JavaFx-FFFFFF?logo=javafx" />
+    <img src="https://img.shields.io/badge/-Junit-FFFFFF?logo=junit" />
+  </a>
+</div>
 
 ### Getting Started
 
