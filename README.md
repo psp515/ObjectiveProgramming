@@ -28,10 +28,7 @@
 
 Project is a Objective Programing Course on AGH UST 2022/2023.
 <br/>
-This repository contains 
-- [X] Labs (oolab and tags lab1-lab8) - sets of task to do every week for practice, [Tasks](https://github.com/apohllo/obiektowe-lab), this folder may be a bit mixed
-- [ ] Project (EvoultionGenereator) - prject involving all knowledge gained from labs 
-<br/>
+This repository contains labs lessons (oolab and tags lab1-lab8) - sets of task to do every week for practice, [Tasks](https://github.com/apohllo/obiektowe-lab), this folder may be a bit mixed
 
 For me in labs the most interesting were Design Patters, I have used here few like:
 - Abstract Factory
@@ -53,10 +50,6 @@ For me in labs the most interesting were Design Patters, I have used here few li
 To use this project simply downolad this repository and open it in InteliJ or VSC.
 <br/>
 Use gardle to autmatically install required java and simply run apps.
-
-### Usage 
-
-If you need to make statistical excersice EvoultionGenerator may be perfect for you, it displays additional statisctical data and provides export to .csv file.
 
 ### License
 
